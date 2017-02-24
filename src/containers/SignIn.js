@@ -11,7 +11,8 @@ import {
   Image,
   Text,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from 'react-native';
 
 import CircleImageView from 'components/CircleImageView/CircleImageView';
@@ -20,6 +21,25 @@ import applicationStyles from 'config/applicationStyle';
 import Colors from 'config/colors';
 
 export default class Practice1 extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: ''
+    };
+
+    this.handleSignIn = this.handleSignIn.bind(this);
+    this.handleSignUp = this.handleSignUp.bind(this);
+  }
+
+  handleSignIn() {
+    Alert.alert( 'Account Info', `username =${this.state.username} - password=${this.state.password}`);
+  }
+
+  handleSignUp() {
+    //Using Navigator to push SignUp screen
+  }
+
   render() {
     return (
        <Image
@@ -32,10 +52,13 @@ export default class Practice1 extends Component {
           </View>
           <View style={applicationStyles.quarterHeight}>
             <CustomTextInput
+              onChangeText={(text) => this.setState({username: text})}
               keyboardType={'email-address'}
               placeholder={'UserName'}
               imageIcon={require('assets/images/user_name.png')} />
             <CustomTextInput
+              onChangeText={(text) => this.setState({password: text})}
+              secureTextEntry={true}
               placeholder={'Password'}
               imageIcon={require('assets/images/password.png')} />
             <TouchableOpacity
@@ -46,14 +69,14 @@ export default class Practice1 extends Component {
             </TouchableOpacity>
           </View>
           <View style={[applicationStyles.quarterHeight, {justifyContent: 'flex-end'}]}>
-            <TouchableOpacity activeOpacity={.5}>
+            <TouchableOpacity activeOpacity={.5} onPress={this.handleSignIn}>
               <View style={styles.signinButton}>
                 <Text style={styles.signinText}>Sign In</Text>
               </View>
             </TouchableOpacity>
             <View style={styles.signupWrap}>
               <Text style={styles.accountText}>Don't have an account?</Text>
-              <TouchableOpacity activeOpacity={.5}>
+              <TouchableOpacity activeOpacity={.5} onPress={this.handleSignUp}>
                 <Text style={styles.signupLinkText}>Sign Up</Text>
               </TouchableOpacity>
             </View>
