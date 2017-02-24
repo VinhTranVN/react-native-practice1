@@ -23,11 +23,10 @@ export default class CustomTextInput extends Component {
             style={applicationStyles.iconInputField} />
         </View>
         <TextInput
-          placeholderTextColor={this.props.placeholderTextColor ? this.props.placeholderTextColor: Colors.Alto}
-          placeholder={this.props.placeholder}
+          {...this.props}
           style={applicationStyles.inputField}
-          secureTextEntry={this.props.secureTextEntry}
           underlineColorAndroid={Colors.transparent}
+          placeholderTextColor={this.props.placeholderTextColor ? this.props.placeholderTextColor: Colors.Alto}
         />
       </View>
     );
@@ -35,10 +34,7 @@ export default class CustomTextInput extends Component {
 }
 
 CustomTextInput.propTypes = {
-  imageIcon: PropTypes.number.isRequired,
-  secureTextEntry: PropTypes.bool,
-  placeholder: PropTypes.string,
-  placeholderTextColor: PropTypes.string
+  imageIcon: PropTypes.number.isRequired
 };
 
 const styles = StyleSheet.create({
