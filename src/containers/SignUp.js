@@ -9,14 +9,21 @@ import {
   View,
   Text,
   StyleSheet,
+  Image
 } from 'react-native';
+
+import applicationStyles from 'config/applicationStyle';
 
 export default class SignUp extends Component {
   render() {
     return (
+      <Image
+         style={applicationStyles.splashScreen}
+         source={require('assets/images/bg_signup.png')}>
       <View style={styles.container}>
         <Text>I'm the SignUp screen</Text>
       </View>
+    </Image>
     );
   }
 }

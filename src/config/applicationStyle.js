@@ -30,6 +30,11 @@ const ApplicationStyles = {
     width: Metrics.icons.small,
     resizeMode: 'contain'
   },
+  iconNavigationItem: {
+    height: Metrics.icons.medium,
+    width: Metrics.icons.small,
+    resizeMode: 'contain'
+  },
   halfHeight: {
       flex: .5,
       alignItems: 'center',

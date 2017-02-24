@@ -41,12 +41,11 @@ export default class SignIn extends Component {
   handleSignUp() {
     //Using Navigator to push SignUp screen
     console.log(this.props);
-    this.props.navigator.push({id: 'signup', title: 'Sign Up', index: 1});
+    this.props.navigator.push(listRoutes[1]);
     // this.props.navigator.push({
-    //   id: 'detail',
-    //   title: 'Movie Detail',
+    //   id: 'signup',
+    //   title: 'Sign Up',
     //   pasProp: movie,
-    //   callback: this.updateMovie.bind(this)
     // })
   }
 
