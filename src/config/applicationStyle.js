@@ -1,5 +1,5 @@
 import {
-  StyleSheet
+  Platform
 } from 'react-native';
 
 import Metrics from './metrics';
@@ -21,18 +21,22 @@ const ApplicationStyles = {
   },
   inputField: {
     flex: 1,
-    height: 40,
-    padding: Metrics.padding,
+    paddingHorizontal: Metrics.padding,
     color: Colors.white,
-    backgroundColor: Colors.transparent,
-    borderRadius: Metrics.borderRadius
+    backgroundColor: Colors.transparent
   },
   iconInputField: {
-    padding: Metrics.padding,
     height: Metrics.icons.small,
     width: Metrics.icons.small,
-    resizeMode: 'contain',
-    backgroundColor: 'red'
+    resizeMode: 'contain'
+  },
+  halfHeight: {
+      flex: .5,
+      alignItems: 'center',
+      justifyContent: 'center'
+  },
+  quarterHeight: {
+      flex: .25
   }
 };
 

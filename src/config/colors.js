@@ -8,8 +8,9 @@ const Colors = {
   red: 'red',
   errors: 'red',
   disable: '#C0C0C0',
-  buttonBackground: '#ff3366',
+  radicalRed: '#ff3366',
   translucentBlack: 'rgba(0, 0, 0, 0.5)',
-  transparent: 'rgba(0, 0, 0, 0)'
+  transparent: 'rgba(0, 0, 0, 0)',
+  Alto: '#d7d7d7'
 };
 export default Colors;

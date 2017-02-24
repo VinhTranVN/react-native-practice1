@@ -10,27 +10,53 @@ import {
   StyleSheet,
   Image,
   Text,
-  View
+  View,
+  TouchableOpacity
 } from 'react-native';
 
 import CircleImageView from 'components/CircleImageView/CircleImageView';
 import CustomTextInput from 'components/CustomTextInput/CustomTextInput';
-import * as SignUp from 'containers/SignUp';
+import applicationStyles from 'config/applicationStyle';
+import Colors from 'config/colors';
 
 export default class Practice1 extends Component {
   render() {
     return (
        <Image
-          style={styles.background}
+          style={applicationStyles.splashScreen}
           source={require('assets/images/bg_signin.png')}>
-          <View style={styles.halfHeight}>
-            <CircleImageView height={120} imagelink={require('assets/images/check_red.png')}/>
+          <View style={applicationStyles.halfHeight}>
+            <CircleImageView
+              height={120}
+              imagelink={require('assets/images/check_red.png')}/>
           </View>
-          <View style={styles.quarterHeight}>
-            <CustomTextInput imageIcon={require('assets/images/user_name.png')} />
-            <CustomTextInput imageIcon={require('assets/images/password.png')} />
+          <View style={applicationStyles.quarterHeight}>
+            <CustomTextInput
+              keyboardType={'email-address'}
+              placeholder={'UserName'}
+              imageIcon={require('assets/images/user_name.png')} />
+            <CustomTextInput
+              placeholder={'Password'}
+              imageIcon={require('assets/images/password.png')} />
+            <TouchableOpacity
+              activeOpacity={.5}>
+                <Text style={styles.forgotPasswordText}>
+                  Forgot Password?
+                </Text>
+            </TouchableOpacity>
           </View>
-          <View style={[styles.quarterHeight, {backgroundColor: 'white'}]}>
+          <View style={[applicationStyles.quarterHeight, {justifyContent: 'flex-end'}]}>
+            <TouchableOpacity activeOpacity={.5}>
+              <View style={styles.signinButton}>
+                <Text style={styles.signinText}>Sign In</Text>
+              </View>
+            </TouchableOpacity>
+            <View style={styles.signupWrap}>
+              <Text style={styles.accountText}>Don't have an account?</Text>
+              <TouchableOpacity activeOpacity={.5}>
+                <Text style={styles.signupLinkText}>Sign Up</Text>
+              </TouchableOpacity>
+            </View>
           </View>
       </Image>
     );
@@ -38,24 +64,38 @@ export default class Practice1 extends Component {
 }
 
 var styles = StyleSheet.create({
-    background: {
-        flex: 1,
-        flexDirection: 'column',
-        width: null,
-        height: null
-    },
-    halfHeight: {
-        flex: .5,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderBottomWidth: 0.5,
-        borderBottomColor: 'red'
-    },
-    quarterHeight: {
-        flex: .25,
-        borderBottomWidth: 1,
-        borderBottomColor: 'red'
-    }
+  forgotPasswordText: {
+    color: Colors.Alto,
+    backgroundColor: Colors.transparent,
+    textAlign: 'right',
+    paddingRight: 15,
+    paddingTop: 10
+  },
+  signinButton: {
+    height: 60,
+    backgroundColor: Colors.radicalRed,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  signinText: {
+    color: "#FFF",
+    fontSize: 18
+  },
+  signupWrap: {
+    height: 60,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  accountText: {
+    color: "#D8D8D8",
+    backgroundColor: Colors.transparent
+  },
+  signupLinkText: {
+    color: "red",
+    marginLeft: 5,
+    backgroundColor: Colors.transparent
+  }
 });
 
 AppRegistry.registerComponent('Practice1', () => Practice1);
