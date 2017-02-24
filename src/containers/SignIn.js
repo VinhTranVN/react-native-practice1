@@ -4,23 +4,24 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Image,
   Text,
   View,
   TouchableOpacity,
-  Alert
+  Alert,
+  Navigator
 } from 'react-native';
 
 import CircleImageView from 'components/CircleImageView/CircleImageView';
 import CustomTextInput from 'components/CustomTextInput/CustomTextInput';
 import applicationStyles from 'config/applicationStyle';
 import Colors from 'config/colors';
+import { listRoutes } from 'config/routes';
 
-export default class Practice1 extends Component {
+export default class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,11 +34,20 @@ export default class Practice1 extends Component {
   }
 
   handleSignIn() {
+    //
     Alert.alert( 'Account Info', `username =${this.state.username} - password=${this.state.password}`);
   }
 
   handleSignUp() {
     //Using Navigator to push SignUp screen
+    console.log(this.props);
+    this.props.navigator.push({id: 'signup', title: 'Sign Up', index: 1});
+    // this.props.navigator.push({
+    //   id: 'detail',
+    //   title: 'Movie Detail',
+    //   pasProp: movie,
+    //   callback: this.updateMovie.bind(this)
+    // })
   }
 
   render() {
@@ -86,6 +96,10 @@ export default class Practice1 extends Component {
   }
 }
 
+SignIn.propTypes = {
+  login: PropTypes.func
+};
+
 var styles = StyleSheet.create({
   forgotPasswordText: {
     color: Colors.Alto,
@@ -120,5 +134,3 @@ var styles = StyleSheet.create({
     backgroundColor: Colors.transparent
   }
 });
-
-AppRegistry.registerComponent('Practice1', () => Practice1);

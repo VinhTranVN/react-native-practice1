@@ -4,23 +4,10 @@
  * @flow
  */
 
-import React, { Component } from 'react';
 import {
-  AppRegistry,
-  StyleSheet,
-  Image,
-  Text,
-  View
+  AppRegistry
 } from 'react-native';
 
-import SignIn from 'containers/SignIn';
+import Root from 'src/root';
 
-export default class Practice1 extends Component {
-  render() {
-    return (
-       <SignIn />
-    );
-  }
-}
-
-AppRegistry.registerComponent('Practice1', () => Practice1);
+AppRegistry.registerComponent('Execise1', () => root);
