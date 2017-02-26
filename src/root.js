@@ -11,68 +11,48 @@ import {
   StyleSheet
 } from 'react-native';
 
+import {
+  Actions,
+  Router,
+  Scene,
+  ActionConst
+} from 'react-native-router-flux';
+
 import SignIn from 'containers/SignIn';
 import SignUp from 'containers/SignUp';
 import routes, { listRoutes } from 'config/routes';
 import applicationStyles from 'config/applicationStyle';
 
-const NavigationBarRouteMapper = {
-  LeftButton(route, navigator, index, navState) {
-    console.log('### navState = ' + navState + ' index = ' + index);
-    if (index > 0) {
-      return (
-        <TouchableHighlight underlayColor='transparent'
-          onPress={() => {navigator.pop();}}>
-          <Image
-            style={[applicationStyles.iconNavigationItem, applicationStyles.leftNavigationItem]}
-            source={require('assets/images/back.png')}
-            resizeMode={'contain'} />
-        </TouchableHighlight>
-      );
-    }
-  },
-  RightButton(route, navigator, index, navState) {
-    return null;
-  },
-  Title(route, navigator, index, navState) {
-    return null;
-  }
-};
+const scenes = Actions.create(
+  <Scene key="root">
+    <Scene
+      key="SignIn"
+      component={SignIn}
+      initial={true}
+      hideNavBar={true} />
+    <Scene
+      key="SignUp"
+      component={SignUp}
+      title="Sign Up"
+      hideNavBar={false}
+      type={ActionConst.PUSH}
+    />
+  </Scene>
+);
 
 export default class Root extends Component {
   constructor(props) {
     super(props);
-    this.renderScene = this.renderScene.bind(this);
-    this.configureScene = this.configureScene.bind(this);
-  }
-
-  configureScene(route, routeStack) {
-    return Navigator.SceneConfigs.PushFromRight;
   }
 
   render() {
     return (
-      <Navigator
-        initialRoute={listRoutes[0]}
-        renderScene={this.renderScene}
-        navigationBar={
-          <Navigator.NavigationBar style={styles.navbar}
-              routeMapper={NavigationBarRouteMapper}
-              navigationStyles={Navigator.NavigationBar.StylesIOS}
-          />
-        }
-        configureScene={this.configureScene}
+      <Router
+        scenes={scenes}
+        titleStyle={{color: 'white'}} backButtonImage={require('assets/images/back.png')}
+        navigationBarStyle={{backgroundColor: 'transparent', borderBottomColor: 'transparent'}}
       />
     );
-  }
-
-  renderScene(route, navigator){
-    switch (route.id){
-      case 'signin':
-        return routes.getSignInRoute(navigator);
-      case 'signup':
-        return routes.getSignUpRoute(navigator);
-    }
   }
 }
 

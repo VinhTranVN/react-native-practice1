@@ -15,6 +15,10 @@ import {
   Navigator
 } from 'react-native';
 
+import {
+  Actions
+} from 'react-native-router-flux';
+
 import CircleImageView from 'components/CircleImageView/CircleImageView';
 import CustomTextInput from 'components/CustomTextInput/CustomTextInput';
 import applicationStyles from 'config/applicationStyle';
@@ -41,12 +45,7 @@ export default class SignIn extends Component {
   handleSignUp() {
     //Using Navigator to push SignUp screen
     console.log(this.props);
-    this.props.navigator.push(listRoutes[1]);
-    // this.props.navigator.push({
-    //   id: 'signup',
-    //   title: 'Sign Up',
-    //   pasProp: movie,
-    // })
+    Actions.SignUp();
   }
 
   render() {
