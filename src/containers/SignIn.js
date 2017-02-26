@@ -128,7 +128,7 @@ var styles = StyleSheet.create({
     backgroundColor: Colors.transparent
   },
   signupLinkText: {
-    color: "red",
+    color: "white",
     marginLeft: 5,
     backgroundColor: Colors.transparent
   }

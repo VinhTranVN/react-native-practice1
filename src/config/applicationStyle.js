@@ -30,18 +30,31 @@ const ApplicationStyles = {
     width: Metrics.icons.small,
     resizeMode: 'contain'
   },
+  leftNavigationItem: {
+    marginLeft: Metrics.margin,
+    marginTop: Metrics.margin
+  },
+  rightNavigationItem: {
+    marginRight: Metrics.margin,
+    marginTop: Metrics.margin
+  },
   iconNavigationItem: {
     height: Metrics.icons.medium,
     width: Metrics.icons.small,
     resizeMode: 'contain'
   },
   halfHeight: {
-      flex: .5,
-      alignItems: 'center',
-      justifyContent: 'center'
+    flex: .5,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   quarterHeight: {
-      flex: .25
+    flex: .25,
+  },
+  threeQuarterHeight: {
+    flex: .75,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 };
 

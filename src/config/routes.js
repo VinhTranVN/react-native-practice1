@@ -13,5 +13,5 @@ const routes = {
 
 export default routes;
 
-export const listRoutes = [{id: 'signin', title: 'Sign In', index: 0},
-                {id: 'signup', title: 'Sign Up', index: 1}];
+export const listRoutes = [{id: 'signin', title: 'Sign In'},
+                {id: 'signup', title: 'Sign Up'}];
