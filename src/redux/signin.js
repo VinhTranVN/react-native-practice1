@@ -1,3 +1,5 @@
+import AuthenticationService from 'network/AuthenticationService';
+
 //=============================//
 //      Action Types
 //=============================//
@@ -8,20 +10,20 @@ const FAILED  = 'Failed';
 //=============================//
 //      Action Creators
 //=============================//
-export function loginRequest() {
+function loginRequest() {
 	return {
 		type: REQUEST
 	};
 }
 
-export function loginRequestSuccess(json) {
+function loginRequestSuccess(json) {
 	return {
 		type: SUCCESS,
 		payload: json
 	};
 }
 
-export function loginRequestFailed(error) {
+function loginRequestFailed(error) {
 	return {
 		type: FAILED,
 		error: error.message
@@ -75,9 +77,18 @@ const userInfo = {
 };
 
 export function login(userCredentials) {
-	if (userCredentials.username === 'test@gmail.com' && userCredentials.password === '123456') {
-		return loginRequestSuccess(userInfo);
-	} else {
-		return loginRequestFailed({message: 'invalid account'});
-	}
+  return (dispatch, getState) => {
+    dispatch(loginRequest());
+    return AuthenticationService.signin(userCredentials)
+    .then(response => {
+      return response.json();
+    })
+    .then(jsonTask => {
+        dispatch(loginRequestSuccess(jsonTask));
+    })
+    .catch(error => {
+      console.log('There has been a problem with your fetch operation: ' + error.message);
+      dispatch(loginRequestFailed(error))
+    });
+  };
 }

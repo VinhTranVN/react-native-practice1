@@ -14,18 +14,16 @@ import {
   Alert,
   ActivityIndicator
 } from 'react-native';
-import { connect } from 'react-redux';
 import {
   Actions
 } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 
-import { login, loginRequestSuccess } from 'redux/signin';
-
+import { login } from 'redux/signin';
 import CircleImageView from 'components/CircleImageView/CircleImageView';
 import CustomTextInput from 'components/CustomTextInput/CustomTextInput';
 import applicationStyles from 'config/applicationStyle';
 import Colors from 'config/colors';
-import { listRoutes } from 'config/routes';
 
 class SignIn extends Component {
   constructor(props) {
@@ -41,7 +39,7 @@ class SignIn extends Component {
 
   handleSignIn() {
     this.props.login({
-      username: this.state.username,
+      email: this.state.username,
       password: this.state.password
     });
   }
@@ -69,6 +67,9 @@ class SignIn extends Component {
   }
 
   render() {
+    if(this.props.user) {
+      Alert.alert('Login Success', `Welcome ${this.props.user.full_name}`);
+    }
     return (
        <Image
           style={applicationStyles.splashScreen}
@@ -80,12 +81,14 @@ class SignIn extends Component {
           </View>
           <View style={applicationStyles.quarterHeight}>
             <CustomTextInput
+              autoCapitalize={'none'}
               onChangeText={(text) => this.setState({username: text})}
               keyboardType={'email-address'}
               placeholder={'UserName'}
               imageIcon={require('assets/images/user_name.png')} />
             <CustomTextInput
               onChangeText={(text) => this.setState({password: text})}
+              autoCapitalize={'none'}
               secureTextEntry={true}
               placeholder={'Password'}
               imageIcon={require('assets/images/password.png')} />
@@ -114,6 +117,7 @@ class SignIn extends Component {
 }
 
 SignIn.propTypes = {
+  login: PropTypes.func,
   error: PropTypes.string,
   loading: PropTypes.bool,
   user: PropTypes.object
@@ -124,7 +128,7 @@ function mapStateToProps(state) {
   return {
     error: state.signInReducer.error,
     loading: state.signInReducer.loading,
-    user: state.signInReducer.user
+    user: state.signInReducer.userlogin
   }
 }
 
@@ -137,7 +141,9 @@ function mapDispatchToProps(dispatch) {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  {
+    login
+  }
 )(SignIn);
 
 var styles = StyleSheet.create({
