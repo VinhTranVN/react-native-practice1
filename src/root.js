@@ -17,6 +17,8 @@ import {
   Scene,
   ActionConst
 } from 'react-native-router-flux';
+import { Provider } from 'react-redux';
+import store from 'config/store';
 
 import SignIn from 'containers/SignIn';
 import SignUp from 'containers/SignUp';
@@ -47,11 +49,13 @@ export default class Root extends Component {
 
   render() {
     return (
-      <Router
-        scenes={scenes}
-        titleStyle={{color: 'white'}} backButtonImage={require('assets/images/back.png')}
-        navigationBarStyle={{backgroundColor: 'transparent', borderBottomColor: 'transparent'}}
-      />
+      <Provider store={store}>
+        <Router
+          scenes={scenes}
+          titleStyle={{color: 'white'}} backButtonImage={require('assets/images/back.png')}
+          navigationBarStyle={{backgroundColor: 'transparent', borderBottomColor: 'transparent'}}
+        />
+    </Provider>
     );
   }
 }

@@ -35,7 +35,8 @@ const INITIAL_STATE = {
 	error: '',
 	loading: false
 };
-export default (state = INITIAL_STATE, action) => {
+
+export function signInReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case REQUEST:
 			return {
@@ -47,13 +48,15 @@ export default (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				loading: false,
-				error: ''
+				error: '',
+				user: action.payload
 			};
 		case FAILED:
+			console.log(action.error);
 			return {
 				...state,
 				loading: false,
-				error: ''
+				error: action.error
 			};
 		default:
       return state;
@@ -70,10 +73,11 @@ const userInfo = {
 	birthday: '1986-01-20',
 	token: 'abcxyzwendsjkfjdsklfjkds'
 };
+
 export function login(userCredentials) {
 	if (userCredentials.username === 'test@gmail.com' && userCredentials.password === '123456') {
-		loginRequestSuccess(userInfo);
+		return loginRequestSuccess(userInfo);
 	} else {
-		loginRequestFailed();
+		return loginRequestFailed({message: 'invalid account'});
 	}
 }

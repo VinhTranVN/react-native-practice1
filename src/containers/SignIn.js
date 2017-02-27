@@ -12,12 +12,14 @@ import {
   View,
   TouchableOpacity,
   Alert,
-  Navigator
+  ActivityIndicator
 } from 'react-native';
-
+import { connect } from 'react-redux';
 import {
   Actions
 } from 'react-native-router-flux';
+
+import { login, loginRequestSuccess } from 'redux/signin';
 
 import CircleImageView from 'components/CircleImageView/CircleImageView';
 import CustomTextInput from 'components/CustomTextInput/CustomTextInput';
@@ -25,7 +27,7 @@ import applicationStyles from 'config/applicationStyle';
 import Colors from 'config/colors';
 import { listRoutes } from 'config/routes';
 
-export default class SignIn extends Component {
+class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,14 +40,32 @@ export default class SignIn extends Component {
   }
 
   handleSignIn() {
-    //
-    Alert.alert( 'Account Info', `username =${this.state.username} - password=${this.state.password}`);
+    this.props.login({
+      username: this.state.username,
+      password: this.state.password
+    });
   }
 
   handleSignUp() {
-    //Using Navigator to push SignUp screen
-    console.log(this.props);
     Actions.SignUp();
+  }
+
+  checkToRenderLoading() {
+    if(this.props.loading) {
+      return (
+        <ActivityIndicator
+          style={[styles.loader]}
+          color='white'
+          size='large' />
+        );
+    }
+    return (
+      <TouchableOpacity activeOpacity={.5} onPress={this.handleSignIn}>
+      <View style={styles.signinButton}>
+        <Text style={styles.signinText}>Sign In</Text>
+      </View>
+      </TouchableOpacity>
+      );
   }
 
   render() {
@@ -77,11 +97,10 @@ export default class SignIn extends Component {
             </TouchableOpacity>
           </View>
           <View style={[applicationStyles.quarterHeight, {justifyContent: 'flex-end'}]}>
-            <TouchableOpacity activeOpacity={.5} onPress={this.handleSignIn}>
-              <View style={styles.signinButton}>
-                <Text style={styles.signinText}>Sign In</Text>
-              </View>
-            </TouchableOpacity>
+            <Text style={styles.errorText}>
+              {this.props.error}
+            </Text>
+            {this.checkToRenderLoading()}
             <View style={styles.signupWrap}>
               <Text style={styles.accountText}>Don't have an account?</Text>
               <TouchableOpacity activeOpacity={.5} onPress={this.handleSignUp}>
@@ -95,8 +114,31 @@ export default class SignIn extends Component {
 }
 
 SignIn.propTypes = {
-  login: PropTypes.func
+  error: PropTypes.string,
+  loading: PropTypes.bool,
+  user: PropTypes.object
 };
+
+// Map Redux state to component props
+function mapStateToProps(state) {
+  return {
+    error: state.signInReducer.error,
+    loading: state.signInReducer.loading,
+    user: state.signInReducer.user
+  }
+}
+
+// Map Redux actions to component props
+function mapDispatchToProps(dispatch) {
+  return {
+    login: (userCredentials) => dispatch(login(userCredentials))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignIn);
 
 var styles = StyleSheet.create({
   forgotPasswordText: {
@@ -130,5 +172,11 @@ var styles = StyleSheet.create({
     color: "white",
     marginLeft: 5,
     backgroundColor: Colors.transparent
+  },
+  errorText: {
+    color: 'red',
+    backgroundColor: 'transparent',
+    textAlign: 'center',
+    lineHeight: 20
   }
 });
