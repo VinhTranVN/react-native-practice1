@@ -1,15 +1,38 @@
+import { Platform } from 'react-native';
 import {
 	createStore,
 	applyMiddleware,
 	compose
 } from 'redux';
 import thunk from 'redux-thunk';
-import rootReducer from 'config/rootReducer';
+import {
+	composeWithDevTools
+} from 'remote-redux-devtools';
+import reducer from 'config/rootReducer';
 
-const composeEnhancers =
-window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(rootReducer, composeEnhancers(
-  applyMiddleware(thunk)
-));
+let store;
+ if (__DEV__) {
+	const composeEnhancers = composeWithDevTools({
+		 realtime: true,
+		 name: Platform.OS,
+		 hostname: 'localhost',
+		 port: 8000
+	 });
+
+	 store = createStore(
+		reducer,
+		composeEnhancers(
+		 applyMiddleware(thunk)
+		)
+	);
+} else {
+	store = createStore(
+	 reducer,
+	 composeWithDevTools(
+		 applyMiddleware(thunk)
+	 )
+	);
+}
+
 
 export default store;
