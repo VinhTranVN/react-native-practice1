@@ -10,4 +10,4 @@ import {
 
 import Root from 'src/root';
 
-AppRegistry.registerComponent('Execise1', () => root);
+AppRegistry.registerComponent('Execise1', () => Root);
